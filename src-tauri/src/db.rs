@@ -7,8 +7,7 @@ use serde::{Deserialize, Serialize};
 use std::path::Path;
 use uuid::Uuid;
 use chrono::Utc;
-use crate::error::{AppError, AppResult};
-use crate::crypto;
+use crate::error::AppResult;
 
 /// Represents a dataset stored in the local database.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -227,7 +226,7 @@ impl Database {
         &self,
         dataset_id: &str,
         query: &str,
-        columns: &[String],
+        _columns: &[String],
         limit: u32,
         offset: u32,
     ) -> AppResult<SearchResults> {
