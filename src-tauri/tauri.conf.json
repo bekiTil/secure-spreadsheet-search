@@ -103,15 +103,6 @@
           "depends": []
         }
       },
-      "fileAssociations": [
-        {
-          "ext": ["companybundle"],
-          "name": "Secure Spreadsheet Bundle",
-          "description": "Encrypted searchable spreadsheet dataset",
-          "mimeType": "application/x-companybundle",
-          "role": "Editor"
-        }
-      ]
     },
     "security": {
       "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"

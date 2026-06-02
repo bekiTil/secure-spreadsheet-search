@@ -51,17 +51,20 @@ npm install --silent
 npm test
 ok "Frontend tests passed (29/29)"
 
-info "Running Rust tests (compiling ~150 crates on first run — 10-15 min)…"
-echo "    You'll see a lot of 'Compiling ...' lines. That's normal. Please wait."
+info "Running Rust tests (compiling on first run takes 10–15 min — please wait)…"
+echo "    You will see many 'Compiling ...' lines scroll by. That is normal."
 echo ""
-(cd src-tauri && cargo test --lib 2>&1 | tee /tmp/rust-test-out.txt | grep -E "^test |test result|^error\[|Compiling|Finished" | tail -30)
-if grep -q "test result: ok" /tmp/rust-test-out.txt; then
-  ok "Rust tests passed"
-else
-  echo "Rust test output:"
-  cat /tmp/rust-test-out.txt | tail -20
-  die "Rust tests failed — check output above"
+cd src-tauri && cargo test --lib 2>&1 | tee /tmp/rust-test-out.txt | grep -E "^test |test result|^error\[|Compiling|Finished"
+RUST_RESULT=${PIPESTATUS[0]}
+cd ..
+if [ $RUST_RESULT -ne 0 ] || ! grep -q "test result: ok" /tmp/rust-test-out.txt; then
+  echo ""
+  echo "Last 20 lines of Rust output:"
+  tail -20 /tmp/rust-test-out.txt
+  echo -e "${RED}✗ Rust build/tests failed — see above${NC}"
+  exit 1
 fi
+ok "Rust tests passed"
 
 # ── 3. Build the app ──────────────────────────────────────────────────────────
 info "Building macOS app (this takes 5–15 min first time)…"
