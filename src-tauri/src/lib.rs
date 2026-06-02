@@ -106,7 +106,7 @@ pub fn run() {
             {
                 if let Some(path) = paths.first() {
                     if path.extension().and_then(|e| e.to_str()) == Some("companybundle") {
-                        if let Ok(path_str) = path.to_str().map(|s| s.to_string()) {
+                        if let Some(path_str) = path.to_str().map(|s| s.to_string()) {
                             event.window().emit("open-bundle", path_str).ok();
                         }
                     }
