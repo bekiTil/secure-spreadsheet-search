@@ -1,0 +1,138 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist",
+    "withGlobalTauri": true
+  },
+  "package": {
+    "productName": "Secure Spreadsheet Search",
+    "version": "1.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "dialog": {
+        "all": true,
+        "open": true,
+        "save": true
+      },
+      "fs": {
+        "all": true,
+        "scope": [
+          "$APPDATA/*", "$APPCONFIG/*", "$APPLOCALDATA/*",
+          "$HOME/**", "$DOWNLOAD/**", "$DOCUMENT/**", "$DESKTOP/**",
+          "$TEMP/**"
+        ]
+      },
+      "path": {
+        "all": true
+      },
+      "shell": {
+        "open": true
+      },
+      "window": {
+        "all": true
+      },
+      "protocol": {
+        "asset": true,
+        "assetScope": ["$APPDATA/*", "$APPCONFIG/*", "$APPLOCALDATA/*"]
+      }
+    },
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "com.securespreadsheet.search",
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "resources": [],
+      "externalBin": [],
+      "copyright": "",
+      "category": "Productivity",
+      "shortDescription": "Secure offline spreadsheet search",
+      "longDescription": "Import, search, and securely share spreadsheet datasets. Works completely offline. No cloud, no accounts, no internet required.",
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": "",
+        "webviewInstallMode": {
+          "type": "downloadBootstrapper"
+        },
+        "nsis": {
+          "displayLanguageSelector": false,
+          "languages": ["English"],
+          "startMenuFolder": "Secure Spreadsheet Search",
+          "installerIcon": "icons/icon.ico",
+          "sidebarImage": null,
+          "headerImage": null,
+          "installMode": "currentUser",
+          "compression": "lzma"
+        },
+        "wix": {
+          "language": "en-US",
+          "upgradeCode": "8A2B669D-ED76-4F23-B9F4-2A6D2825D9D0"
+        }
+      },
+      "macOS": {
+        "frameworks": [],
+        "minimumSystemVersion": "10.15",
+        "exceptionDomain": "",
+        "signingIdentity": null,
+        "entitlements": null,
+        "providerShortName": null
+      },
+      "linux": {
+        "deb": {
+          "depends": [
+            "libwebkit2gtk-4.0-37",
+            "libgtk-3-0",
+            "libayatana-appindicator3-1"
+          ]
+        },
+        "appimage": {
+          "bundleMediaFramework": true
+        },
+        "rpm": {
+          "depends": []
+        }
+      },
+      "fileAssociations": [
+        {
+          "ext": ["companybundle"],
+          "name": "Secure Spreadsheet Bundle",
+          "description": "Encrypted searchable spreadsheet dataset",
+          "mimeType": "application/x-companybundle",
+          "role": "Editor"
+        }
+      ]
+    },
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:"
+    },
+    "updater": {
+      "active": false
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "title": "Secure Spreadsheet Search",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 900,
+        "minHeight": 600,
+        "center": true,
+        "decorations": true,
+        "fileDropEnabled": true,
+        "visible": true
+      }
+    ]
+  }
+}

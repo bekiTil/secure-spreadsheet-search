@@ -1,0 +1,29 @@
+node_modules/
+dist/
+.env
+.env.local
+
+# Tauri
+src-tauri/target/
+src-tauri/WixTools/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/settings.json
+.idea/
+*.suo
+*.user
+
+# Tests
+coverage/
+
+# Build artifacts
+*.dmg
+*.deb
+*.AppImage
+*.msi
+*.exe

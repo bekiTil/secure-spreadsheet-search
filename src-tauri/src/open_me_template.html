@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Open This Secure Dataset</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8f9fa;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:24px;color:#212529}
+.card{background:#fff;border-radius:16px;padding:48px 40px;max-width:500px;width:100%;box-shadow:0 4px 32px rgba(0,0,0,.08);text-align:center}
+.lock{font-size:56px;margin-bottom:20px;line-height:1}
+h1{font-size:22px;font-weight:700;margin-bottom:8px}
+.bundle-name{display:inline-block;padding:6px 14px;background:#e7f5ff;color:#228be6;border-radius:99px;font-size:13px;font-weight:600;margin:12px 0 20px}
+.desc{color:#6c757d;font-size:15px;line-height:1.6;margin-bottom:28px}
+.steps{text-align:left;background:#f8f9fa;border-radius:12px;padding:20px;margin-bottom:24px}
+.step{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.step:last-child{margin-bottom:0}
+.step-num{background:#228be6;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-text{font-size:14px;line-height:1.5;color:#343a40}
+.step-text strong{color:#212529}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px 24px;background:#228be6;color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none;margin-bottom:10px;transition:background .15s}
+.btn:hover{background:#1971c2}
+.platform-note{display:none;margin-top:16px;padding:14px 16px;background:#fff9db;border:1px solid #fab005;border-radius:10px;font-size:13px;color:#664d03;text-align:left;line-height:1.6}
+.platform-note.visible{display:block}
+.already{margin-top:20px;font-size:12px;color:#adb5bd}
+.already a{color:#228be6;cursor:pointer;text-decoration:underline}
+.security-note{display:flex;gap:8px;align-items:flex-start;margin-top:16px;padding:12px;background:#ebfbee;border-radius:8px;font-size:12px;color:#2f9e44;text-align:left}
+footer{margin-top:24px;font-size:12px;color:#adb5bd}
+@media(max-width:480px){.card{padding:32px 20px}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="lock">🔒</div>
+  <h1>You received a secure dataset</h1>
+  <div class="bundle-name">&#128202; __DATASET_NAME__ &mdash; __RECORD_COUNT__ records</div>
+  <p class="desc">
+    To open this dataset you need <strong>Secure Spreadsheet Search</strong>.
+    It takes about one minute to install.
+  </p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text"><strong>Click the button below</strong> to download and install the app</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text"><strong>Double-click</strong> the <code>.companybundle</code> file that came with this page</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text"><strong>Enter the password</strong> provided by the sender &mdash; and you're in</div>
+    </div>
+  </div>
+
+  <a id="install-btn" class="btn" href="#" onclick="doInstall(event)">
+    <span id="btn-icon">&#11015;&#65039;</span>
+    <span id="btn-label">Download the App</span>
+  </a>
+
+  <div class="platform-note" id="platform-note"></div>
+
+  <div class="already">
+    Already installed? <a onclick="tryOpen()">Open the app now</a>
+  </div>
+
+  <div class="security-note">
+    &#128272; <span>This dataset is encrypted. Without the password, no one can read it. Your data never leaves your device.</span>
+  </div>
+</div>
+
+<footer>Secure Spreadsheet Search &middot; Offline &middot; Encrypted &middot; Private</footer>
+
+<script>
+var BASE = 'https://github.com/bekiTil/secure-spreadsheet-search/releases/latest/download';
+
+var P = {
+  win:   { icon: '🫟', label: 'Download for Windows', file: 'SecureSpreadsheetSearch_1.0.0_x64_en-US.msi',         note: '<strong>Windows:</strong> Double-click the .msi file &rarr; click Install &rarr; the app opens automatically. Then double-click your .companybundle file.' },
+  mac:   { icon: '🍎', label: 'Download for macOS',   file: 'SecureSpreadsheetSearch_1.0.0_universal.dmg',          note: '<strong>macOS:</strong> Open the .dmg &rarr; drag the app to <em>Applications</em> &rarr; open it. Then double-click your .companybundle file.' },
+  linux: { icon: '🐧', label: 'Download for Linux',   file: 'SecureSpreadsheetSearch_1.0.0_amd64.AppImage',         note: '<strong>Linux:</strong> Right-click the file &rarr; Properties &rarr; mark as executable &rarr; double-click to run. Then double-click your .companybundle file.' }
+};
+
+var ua = navigator.userAgent;
+var os = /Windows/.test(ua) ? 'win' : /Mac/.test(ua) ? 'mac' : 'linux';
+var p = P[os];
+
+document.getElementById('btn-icon').textContent = p.icon;
+document.getElementById('btn-label').textContent = p.label;
+document.getElementById('install-btn').href = BASE + '/' + p.file;
+var noteEl = document.getElementById('platform-note');
+noteEl.innerHTML = p.note;
+noteEl.classList.add('visible');
+
+function doInstall(e) {
+  e.preventDefault();
+  window.location.href = BASE + '/' + p.file;
+}
+
+function tryOpen() {
+  window.location.href = 'securespreadsheet://open';
+  setTimeout(function() {
+    alert('If the app did not open, make sure it is installed first, then double-click your .companybundle file.');
+  }, 1500);
+}
+</script>
+</body>
+</html>
