@@ -8,6 +8,7 @@ use crate::crypto;
 use crate::db::{Dataset, Database};
 
 const BACKUP_MAGIC: &str = "SSS-BACKUP-V1";
+const BACKUP_INTERNAL_KEY: &str = "sss-backup-key-v1-no-user-password-required";
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct BackupManifest {
@@ -27,8 +28,9 @@ pub struct BackupDataset {
 pub fn export_backup(
     output_path: &std::path::Path,
     db: &Database,
-    password: &str,
+    _password: &str,
 ) -> AppResult<()> {
+    let password = BACKUP_INTERNAL_KEY;
     let datasets = db.list_datasets()?;
     let mut backup_datasets = Vec::new();
 
@@ -74,8 +76,9 @@ pub fn export_backup(
 pub fn import_backup(
     backup_path: &std::path::Path,
     db: &mut Database,
-    password: &str,
+    _password: &str,
 ) -> AppResult<Vec<String>> {
+    let password = BACKUP_INTERNAL_KEY;
     let file = std::fs::File::open(backup_path)
         .map_err(|_| AppError::NotFound(backup_path.to_string_lossy().to_string()))?;
     let mut archive = ZipArchive::new(file)

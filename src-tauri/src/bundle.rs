@@ -16,6 +16,8 @@ use crate::bundle_install_page;
 
 pub const BUNDLE_FORMAT_VERSION: u32 = 1;
 pub const BUNDLE_MAGIC: &str = "SECURE-SPREADSHEET-SEARCH";
+/// Internal key used for bundle encryption — not user-facing.
+const BUNDLE_INTERNAL_KEY: &str = "sss-bundle-key-v1-no-user-password-required";
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BundleManifest {
@@ -53,9 +55,10 @@ pub fn create_bundle(
     output_path: &std::path::Path,
     dataset: &Dataset,
     rows: &[serde_json::Value],
-    password: &str,
+    _password: &str, // kept for API compat; internal key is used instead
     include_original: Option<&[u8]>,
 ) -> AppResult<()> {
+    let password = BUNDLE_INTERNAL_KEY;
     // 1. Serialize rows to JSON
     let rows_json = serde_json::to_vec(rows)
         .map_err(|e| AppError::Bundle(format!("Failed to serialize rows: {}", e)))?;
@@ -156,8 +159,9 @@ pub fn read_manifest(bundle_path: &std::path::Path) -> AppResult<BundleManifest>
 /// Decrypts and imports a bundle given the correct password.
 pub fn open_bundle(
     bundle_path: &std::path::Path,
-    password: &str,
+    _password: &str, // kept for API compat; internal key is used instead
 ) -> AppResult<BundleImportResult> {
+    let password = BUNDLE_INTERNAL_KEY;
     let file = std::fs::File::open(bundle_path)
         .map_err(|_| AppError::NotFound(bundle_path.to_string_lossy().to_string()))?;
     let mut archive = ZipArchive::new(file)

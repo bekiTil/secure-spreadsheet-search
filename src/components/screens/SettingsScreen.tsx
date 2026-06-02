@@ -98,19 +98,18 @@ export default function SettingsScreen() {
           </div>
         </div>
 
-        {/* Security */}
+        {/* Privacy */}
         <div className="card" style={{ marginBottom: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
             <ShieldIcon size={18} />
-            <h3>Security</h3>
+            <h3>Privacy</h3>
           </div>
           <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', lineHeight: 1.7 }}>
-            <div>🔒 All datasets are stored encrypted on your computer</div>
-            <div>🚫 No internet connection is ever made</div>
-            <div>🚫 No data is ever uploaded to any server</div>
-            <div>🚫 No accounts or login required</div>
-            <div>🔑 Shared bundles use AES-256-GCM encryption</div>
-            <div>🔑 Passwords are hashed using Argon2id</div>
+            <div>✓ All data stays on your computer</div>
+            <div>✓ No internet connection is ever made</div>
+            <div>✓ No data is uploaded to any server</div>
+            <div>✓ No accounts or login required</div>
+            <div>✓ Shared bundles are encrypted automatically</div>
           </div>
         </div>
 
