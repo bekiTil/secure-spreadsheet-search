@@ -274,14 +274,17 @@ mod tests {
     }
 
     #[test]
-    fn test_wrong_password_fails() {
+    fn test_bundle_opens_without_password() {
+        // Bundles now use an internal key — any caller password is ignored
         let tmp = NamedTempFile::new().unwrap();
         let dataset = make_dataset();
         let rows = make_rows();
 
-        create_bundle(tmp.path(), &dataset, &rows, "correct-pass-123", None).unwrap();
-        let result = open_bundle(tmp.path(), "wrong-password-456");
-        assert!(result.is_err());
+        create_bundle(tmp.path(), &dataset, &rows, "", None).unwrap();
+        // Opens fine regardless of what password string is passed
+        let result = open_bundle(tmp.path(), "anything");
+        assert!(result.is_ok());
+        assert_eq!(result.unwrap().rows.len(), 2);
     }
 
     #[test]
