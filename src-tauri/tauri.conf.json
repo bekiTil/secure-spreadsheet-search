@@ -93,8 +93,7 @@
           "compression": "lzma"
         },
         "wix": {
-          "language": "en-US",
-          "upgradeCode": "8A2B669D-ED76-4F23-B9F4-2A6D2825D9D0"
+          "language": "en-US"
         }
       }
     },

@@ -51,16 +51,18 @@ npm install --silent
 npm test
 ok "Frontend tests passed (29/29)"
 
+info "Syncing Rust crate versions…"
+(cd src-tauri && cargo update 2>&1 | tail -3)
+ok "Crates updated"
+
 info "Running Rust tests (compiling on first run takes 10–15 min — please wait)…"
 echo "    You will see many 'Compiling ...' lines scroll by. That is normal."
 echo ""
-cd src-tauri && cargo test --lib 2>&1 | tee /tmp/rust-test-out.txt | grep -E "^test |test result|^error\[|Compiling|Finished"
+cd src-tauri
+cargo test --lib 2>&1 | tee /tmp/rust-test-out.txt
 RUST_RESULT=${PIPESTATUS[0]}
 cd ..
 if [ $RUST_RESULT -ne 0 ] || ! grep -q "test result: ok" /tmp/rust-test-out.txt; then
-  echo ""
-  echo "Last 20 lines of Rust output:"
-  tail -20 /tmp/rust-test-out.txt
   echo -e "${RED}✗ Rust build/tests failed — see above${NC}"
   exit 1
 fi
