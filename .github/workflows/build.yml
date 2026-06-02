@@ -97,7 +97,7 @@ jobs:
           workspaces: src-tauri
 
       - name: Install Linux deps
-        if: matrix.platform == 'ubuntu-latest'
+        if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -117,6 +117,6 @@ jobs:
           tagName: ${{ github.ref_name }}
           releaseName: 'Secure Spreadsheet Search v${{ github.ref_name }}'
           releaseBody: 'See the assets below to download this version.'
-          releaseDraft: true
+          releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}
