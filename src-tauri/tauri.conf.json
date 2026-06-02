@@ -58,6 +58,26 @@
       "category": "Productivity",
       "shortDescription": "Secure offline spreadsheet search",
       "longDescription": "Import, search, and securely share spreadsheet datasets. Works completely offline. No cloud, no accounts, no internet required.",
+      "deb": {
+        "depends": [
+          "libwebkit2gtk-4.0-37",
+          "libgtk-3-0",
+          "libayatana-appindicator3-1"
+        ]
+      },
+      "appimage": {
+        "bundleMediaFramework": true
+      },
+      "rpm": {
+        "depends": []
+      },
+      "macOS": {
+        "frameworks": [],
+        "minimumSystemVersion": "10.15",
+        "exceptionDomain": "",
+        "signingIdentity": null,
+        "entitlements": null
+      },
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
@@ -78,29 +98,6 @@
         "wix": {
           "language": "en-US",
           "upgradeCode": "8A2B669D-ED76-4F23-B9F4-2A6D2825D9D0"
-        }
-      },
-      "macOS": {
-        "frameworks": [],
-        "minimumSystemVersion": "10.15",
-        "exceptionDomain": "",
-        "signingIdentity": null,
-        "entitlements": null,
-        "providerShortName": null
-      },
-      "linux": {
-        "deb": {
-          "depends": [
-            "libwebkit2gtk-4.0-37",
-            "libgtk-3-0",
-            "libayatana-appindicator3-1"
-          ]
-        },
-        "appimage": {
-          "bundleMediaFramework": true
-        },
-        "rpm": {
-          "depends": []
         }
       }
     },
