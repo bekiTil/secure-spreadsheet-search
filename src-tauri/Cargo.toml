@@ -22,20 +22,12 @@ tauri-build = { version = "1.5", features = [] }
 
 [dependencies]
 tauri = { version = "1.7", features = [
-  "dialog-open",
-  "dialog-save",
-  "fs-read-file",
-  "fs-write-file",
-  "fs-create-dir",
-  "fs-read-dir",
-  "fs-remove-file",
-  "fs-rename-file",
+  "dialog-all",
+  "fs-all",
   "path-all",
   "protocol-asset",
   "shell-open",
-  "window-close",
-  "window-minimize",
-  "window-maximize",
+  "window-all",
 ] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
