@@ -88,10 +88,7 @@
         "nsis": {
           "displayLanguageSelector": false,
           "languages": ["English"],
-          "startMenuFolder": "Secure Spreadsheet Search",
           "installerIcon": "icons/icon.ico",
-          "sidebarImage": null,
-          "headerImage": null,
           "installMode": "currentUser",
           "compression": "lzma"
         },
