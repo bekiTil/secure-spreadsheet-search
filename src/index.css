@@ -2,11 +2,11 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f8f9fa;
-  --color-bg-tertiary: #f1f3f5;
-  --color-surface: #ffffff;
-  --color-border: #dee2e6;
+  --color-bg: #F2F1EC;
+  --color-bg-secondary: #EAEAE4;
+  --color-bg-tertiary: #E2E1DA;
+  --color-surface: #FAFAF7;
+  --color-border: #D8D7CF;
   --color-border-focus: #228be6;
   --color-text-primary: #212529;
   --color-text-secondary: #6c757d;
